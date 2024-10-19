@@ -1,0 +1,36 @@
+class DisjointSet:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+        self.rank = [0] * n
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        
+        if rootX == rootY:
+            return
+        
+        if self.rank[rootX] > self.rank[rootY]:
+            self.parent[rootY] = rootX
+        elif self.rank[rootX] < self.rank[rootY]:
+            self.parent[rootX] = rootY
+        else:
+            self.parent[rootY] = rootX
+            self.rank[rootX] += 1
+
+n = 5  # Number of elements (0 to 4)
+ds = DisjointSet(n)
+
+ds.union(0, 1)
+ds.union(1, 2)
+ds.union(3, 4)
+
+print(ds.find(0))  
+print(ds.find(1))  
+print(ds.find(2))  
+print(ds.find(3)) 
+print(ds.find(4))  
