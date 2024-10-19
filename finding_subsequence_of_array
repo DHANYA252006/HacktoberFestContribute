@@ -1,0 +1,22 @@
+def find_subsequences_bit(arr):
+    result = []
+    n = len(arr)
+    
+    def generate_subsequence(bits):
+        subsequence = []
+        for i in range(n):
+            if bits & (1 << i):  
+                subsequence.append(arr[i])
+        return subsequence
+
+    def generate_all():
+        for bits in range(1 << n):  # Iterate over all possible bit combinations (2^n)
+            result.append(generate_subsequence(bits))
+    
+    generate_all()
+    return result
+
+arr = [1, 2, 3]
+subsequences = find_subsequences_bit(arr)
+for subseq in subsequences:
+    print(subseq)
